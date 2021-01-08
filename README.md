@@ -2,6 +2,7 @@
 
 ## GENERAL INFORMATION
 <b>IMPORTANT: This program is only compatible with Python 3 </b>
+
 This program is written for the purpose of practicing basic Python skills, such as opening and modifying a text file, string concatenation, object oriented programing, and decomposition.
 
 ---
