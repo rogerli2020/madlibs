@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import random
 import sys
 NUMBER_OF_EACH_TYPE_OF_WORD_TO_SELECT = 3

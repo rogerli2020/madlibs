@@ -1,6 +1,7 @@
 # MAD LIBS
 
 ## GENERAL INFORMATION
+<b>IMPORTANT: This program is only compatible with Python 3 </b>
 This program is written for the purpose of practicing basic Python skills, such as opening and modifying a text file, string concatenation, object oriented programing, and decomposition.
 
 ---
@@ -23,5 +24,5 @@ This program is intended work as a text-based Mad Libs game. The overall sequenc
 
 ---
 ## CONFIGURATION
-    - This program needs at least one word bank text file, only one sample paragraphs and only one recovery text file to run properly.
-    - Edit the "FILE_LOCATIONS" list, the "PARAGRAPH_LIST_LOCATION" string, or the "RECOVER_LIST_LOCATION" string to change the respective .txt file location.
+- This program needs at least one word bank text file, only one sample paragraphs and only one recovery text file to run properly.
+- Edit the "FILE_LOCATIONS" list, the "PARAGRAPH_LIST_LOCATION" string, or the "RECOVER_LIST_LOCATION" string to change the respective .txt file location.
