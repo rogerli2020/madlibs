@@ -1,1 +1,2 @@
-# test-madlibs
+This program needs at least one word bank text file and only one sample paragraphs text file to run properly.
+Edit the "FILE_LOCATIONS" list or the "PARAGRAPH_LIST_LOCATION" string to change the respective .txt file location.
