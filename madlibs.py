@@ -1,5 +1,5 @@
 import random
-
+import sys
 NUMBER_OF_EACH_TYPE_OF_WORD_TO_SELECT = 3
 FILE_LOCATIONS = ["wordbank/nouns.txt","wordbank/verbs.txt","wordbank/adj.txt"]
 PARAGRAPH_LIST_LOCATION = "wordbank/paragraphs.txt"
@@ -46,6 +46,8 @@ def name_and_wordbank_obtainer(ask_count): #This function ONLY asks for user res
     else:
         input_prompt_message = "Please enter name of another player:"
     player_name = input(input_prompt_message)
+    if player_name == "-q":
+        sys.exit("Goodbye!")
     return player_name
 def name_list_former(player_count): #This function forms a list based on the inputs of name_and_wordbank_obtainer function.
     ask_count = 0
@@ -66,6 +68,10 @@ def player_objects_former(): #This function asks for number of users, gets list 
     number_of_players = "string"
     while number_of_players not in "123456789" or len(number_of_players) != 1:
         number_of_players = input("Please enter number of players (MIN 1, MAX 9):")
+        if number_of_players == "-q":
+            sys.exit("Goodbye!")
+        else:
+            continue
     number_of_players = int(number_of_players)
     player_name_list = name_list_former(number_of_players)
     players_dict = {name: Player(name=name, filelocation=FILE_LOCATIONS, filled_paragraph=None, votes=0) for name in player_name_list} #Creates Players objects using a dict
@@ -111,6 +117,10 @@ def paragraph_options(): # PRINTS PARAGRAPH OPTIONS AND
     user_response = "abc"
     while user_response not in "12" or len(user_response) != 1:
         user_response = input(">>> PLEASE ENTER DESIRED OPTION (1, 2):")
+        if user_response == "-q":
+            sys.exit("Goodbye!")
+        else:
+            continue
     return user_response
 def paragraph_options_user_response_controller(user_response): #User cannot get past this until paragraph number is chosen.
     try:
@@ -173,6 +183,8 @@ def paragraph_viewer(): #Allows the user to see all paragraphs, accepts user-ent
         user_input = "abc -c"
         while user_response_viability_checker(user_input) == False:       #Asks for user response
             user_input = input(">>>> PLEASE ENTER DESIRED OPTION:")
+            if user_input == "-q":
+                sys.exit("Goodbye!")
         user_input_list = user_input.split(" ")
         if len(user_input_list) > 1 and user_input_list[1] == "-c":                      #Returns line number if user enters -c
             return user_input_list[0]
@@ -198,6 +210,8 @@ def paragraph_viewer(): #Allows the user to see all paragraphs, accepts user-ent
         elif user_input == "recover" or user_input == "RECOVER" or user_input == "Recover":
             user_input_2 = input("""***CONFIRMATION: Recovering the default list will eliminate all user changes to the 
             list permanently. Are you sure you want to do this? (Y/N):""")
+            if user_input_2 == "-q":
+                sys.exit("Goodbye!")
             if user_input_2 in "Yy" and len(user_input_2) == 1:
                 recover_list()
                 return "9999999999"
@@ -244,6 +258,8 @@ def game_board(paragraph_chosen,players_dict,blank_numbers): #Prints game messag
         eligibility = False
         while eligibility == False:
             user_input = input(">>> Please separate your words using spaces:")
+            if user_input == "-q":
+                sys.exit("Goodbye!")
             eligibility_tuple = player_word_input_eligibility_checker(i[1].wordbank,user_input,blank_numbers)
             false_message = eligibility_tuple[1]
             if false_message != None:
@@ -279,6 +295,8 @@ def voting_process(players_dict):
         vote_elig = False
         while vote_elig == False:
             player_vote = input("● {}, Please cast your vote by entering player's name:".format(i[1].name))
+            if player_vote == "-q":
+                sys.exit("Goodbye!")
             if player_vote in players_dict:
                 vote_elig = True
             else:
@@ -324,13 +342,18 @@ def one_game(players_dict):
 def main():
     print("=====================WELCOME=TO=MAD=LIBS======================")
     print("Enter player information in the section below to start game.")
+    print("""Enter "-q" anywhere in the program to exit.""")
     players_dict = player_objects_former()
     play_again_response = "RandomString"
     while play_again_response not in "Nn":
         one_game(players_dict)
         play_again_response = input("Play again? (Y/N):")
+        if play_again_response == "-q":
+            sys.exit("Goodbye!")
         while play_again_response not in "YyNn" or len(play_again_response) != 1:
             play_again_response = input("Play again? (Y/N):")
+            if play_again_response == "-q":
+                sys.exit("Goodbye!")
         if play_again_response in "Nn":
             break
         else:
@@ -338,6 +361,8 @@ def main():
             possible_response = "YyNn"
             while user_input_2 not in possible_response or len(user_input_2) != 1:
                 user_input_2 = input("Play with the same people? (Y/N):")
+                if user_input_2 == "-q":
+                    sys.exit("Goodbye!")
             if user_input_2 in "Yy": #Clear all information but Player.name
                 for i in players_dict.items():
                     i[1].votes = 0
