@@ -3,13 +3,7 @@ import sys
 NUMBER_OF_EACH_TYPE_OF_WORD_TO_SELECT = 3
 FILE_LOCATIONS = ["wordbank/nouns.txt","wordbank/verbs.txt","wordbank/adj.txt"]
 PARAGRAPH_LIST_LOCATION = "wordbank/paragraphs.txt"
-RECOVER_LIST = ["""He looked at her NOUN, and without hesitation, he VERBed their NOUNs.
-My NOUN was acting a bit ADJ, so I decided to VERB it.
-To the surprise of everyone, the NOUN happened yesterday, but it didn't VERB as expected.
-When he VERBed my NOUN, I sensed a ADJ NOUN coming from my NOUN.
-To VERB a NOUN, one must first VERB their NOUN.
-The ADJ NOUN jumped over the ADJ NOUN."""
-]
+RECOVER_LIST_LOCATION = "wordbank/default_paragraphs.txt"
 
 class Player: #filelocation is a list that contains the locations of text files in the following order: NOUNS, VERBS, ADJ
     def __init__(self,name,filelocation,filled_paragraph,votes):
@@ -218,10 +212,16 @@ def paragraph_viewer(): #Allows the user to see all paragraphs, accepts user-ent
             else:
                 return "9999999999"
 def recover_list():                                       #RECOVERS para list
-    writable_file = open(PARAGRAPH_LIST_LOCATION,"w")
-    for item in RECOVER_LIST:
-        writable_file.write(item)
-    writable_file.close()
+    try:
+        file_object = open(RECOVER_LIST_LOCATION,"r")
+        original_file_object = open(PARAGRAPH_LIST_LOCATION, "w")
+    except FileNotFoundError:
+        print("File Cannot be Found. Failed to execute recovery.")
+    else:
+        for line in file_object.readlines():
+            original_file_object.write(line)
+        file_object.close()
+        original_file_object.close()
 def blank_counter(paragraph_chosen): #Counts the total number of items that the user needs to enter. Returns a number.
     paragraph_word_list = paragraph_chosen.split(" ")
     return_value = 0
